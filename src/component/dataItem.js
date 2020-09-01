@@ -17,33 +17,35 @@ export default class DataItem extends Component {
   render() {
     return (
       <ListItem thumbnail>
-        <Left>
-          <Thumbnail
-            square
-            source={{
-              uri:
-                this.data.urlToImage != null
-                  ? this.data.urlToImage
-                  : "https://i.redd.it/bovm117j6a351.png",
-            }}
-          />
-        </Left>
-        <Body>
-          <Text numberOfLines={2}>{this.data.title}</Text>
-          <Text note numberOfLines={4}>
-            {this.data.description}
-          </Text>
-          <View style={styles.sourceText}>
-            <Text note>{this.data.source.name}</Text>
-            <TimeAgo time={this.data.publishedAt} />
-          </View>
-        </Body>
-        <Right>
-          <TouchableOpacity transparent onPress={this.handlePress}>
-            <Text>View</Text>
-          </TouchableOpacity>
-        </Right>
-      </ListItem>
+        <TouchableOpacity onPress={this.handlePress}>
+          <Left>
+            <Thumbnail
+              square
+              source={{
+                uri:
+                  this.data.urlToImage != null
+                    ? this.data.urlToImage
+                    : "https://i.redd.it/bovm117j6a351.png",
+              }}
+            />
+          </Left>
+          <Body>
+            <Text numberOfLines={2}>{this.data.title}</Text>
+            <Text note numberOfLines={4}>
+              {this.data.description}
+            </Text>
+            <View style={styles.sourceText}>
+              <Text note>{this.data.source.name}</Text>
+              <TimeAgo time={this.data.publishedAt} />
+            </View>
+          </Body>
+          {/* <Right>
+            <TouchableOpacity transparent>
+              <Text>View</Text>
+            </TouchableOpacity>
+          </Right> */}
+      </TouchableOpacity>
+        </ListItem>
     );
   }
 }

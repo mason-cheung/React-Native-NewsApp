@@ -1,8 +1,9 @@
 //import liraries
 import React, { Component } from 'react';
-import { Dimensions, Modal, Share, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { Dimensions, Share, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { WebView } from 'react-native-webview'
 import { Container, Header, Content, Body, Left, Icon, Right, Title, Button} from 'native-base'
+import Modal from 'react-native-modal'
 
 const webViewHeight = Dimensions.get('window').height - 56;
 
@@ -36,7 +37,7 @@ class ModalComponent extends Component {
                 transparent
                 visible={showModal}
                 onRequestClose={this.handleClose}
-                
+                propagateSwipe
               >
                 <SafeAreaView>
                   <ScrollView>
