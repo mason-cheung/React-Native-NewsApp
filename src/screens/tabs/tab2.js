@@ -1,15 +1,83 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, FlatList, ScrollView } from 'react-native';
+import { Container, Header, Content, List, ListItem, Thumbnail, Left, Body, Right, Button } from 'native-base';
+import { getArticles } from '../../service/news';
+import DataItem from '../../component/dataItem'
+import Modal from '../../component/modal'
+
+
 
 // create a component
-class Tab2 extends Component {
+export default class Tab2 extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoading: true,
+      data: null,
+      setModalVisible: false,
+      modalArticleData: {}
+    }
+  }
+
+  handleItemDataOnPress = (articleData) => {
+    this.setState({
+      setModalVisible: true,
+      modalArticleData: articleData
+    });
+  }
+
+  handleModalClose = () => {
+    this.setState({
+      setModalVisible: false,
+      modalArticleData: {}
+    });
+  }
+
+  componentDidMount() {
+    getArticles('sport').then(data => {
+      this.setState({
+        isLoading: false,
+        data: data
+      });
+    }, error => {
+      Alert.alert('Error', 'Something went wrong!');
+    }
+    )
+  }
+
     render() {
-        return (
-            <View style={styles.container}>
-                <Text>Tab2</Text>
-            </View>
-        );
+      console.log(this.state.data);
+
+    let view = this.state.isLoading ? (
+      <View>
+        <ActivityIndicator animating={this.state.isLoading} />
+        <Text style={{marginTop: 10}} children="Please Wait.." />
+      </View>
+    ) : (
+      <List
+        dataArray={this.state.data}
+        renderRow={(item) => {
+            return (
+              <DataItem onPress={this.handleItemDataOnPress} data={item} />
+            )
+        }} />
+    )
+
+    return (
+      <Container>
+        <Content>
+          {view}
+        </Content>
+        <Modal 
+          showModal={this.state.setModalVisible}
+          articleData={this.state.modalArticleData}
+          onClose={this.handleModalClose}
+        />
+      </Container>
+    );
     }
 }
 
@@ -22,6 +90,3 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
 });
-
-//make this component available to the app
-export default Tab2;

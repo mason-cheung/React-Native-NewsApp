@@ -52,9 +52,9 @@ export default class Tab1 extends Component {
       console.log(this.state.data);
 
     let view = this.state.isLoading ? (
-      <View>
-        <ActivityIndicator animating={this.state.isLoading} />
-        <Text style={{marginTop: 10}} children="Please Wait.." />
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
+        <ActivityIndicator animating={this.state.isLoading} color="#00f0ff"/>
+        <Text style={{marginTop: 10, fontSize: 18}} children="Please Wait.." />
       </View>
     ) : (
       <List
@@ -91,5 +91,3 @@ const styles = StyleSheet.create({
     },
 });
 
-//make this component available to the app
-// export default Tab1;
