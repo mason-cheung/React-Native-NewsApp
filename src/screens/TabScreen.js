@@ -11,7 +11,7 @@ export default class TabsExample extends Component {
       <Container>
         <Header style={styles.headerBackground} hasTabs>
           <Body style={styles.title}>
-            <Title style={styles.header}>Header</Title>
+            <Title style={styles.header}>HKNews</Title>
           </Body>
         </Header>
         <Tabs tabBarUnderlineStyle={{backgroundColor: 'white'}}>

@@ -1,8 +1,10 @@
 //import liraries
 import React, { Component } from 'react';
-import { Dimensions, Modal, Share, TouchableOpacity, StyleSheet } from 'react-native';
+import { Dimensions, Modal, Share, TouchableOpacity, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { WebView } from 'react-native-webview'
 import { Container, Header, Content, Body, Left, Icon, Right, Title, Button} from 'native-base'
+
+const webViewHeight = Dimensions.get('window').height - 56;
 
 // create a component
 class ModalComponent extends Component {
@@ -16,7 +18,12 @@ class ModalComponent extends Component {
     }
 
     handleShare = () => {
-        
+        const {url, title} = this.props.articleData;
+        message = `${title}\n\nRead More @\n\n${url}\n\nShared via HKNews`;
+        return Share.share(
+            {title, message, url: message},
+            {dialogTitle: `Share${title}`}
+        )
     }
 
     render() {
@@ -24,36 +31,67 @@ class ModalComponent extends Component {
         const { url } = articleData;
         if( url != undefined ) {
             return (
-                <Modal
+              <Modal
                 animationType="slide"
                 transparent
                 visible={showModal}
                 onRequestClose={this.handleClose}
-            >
-                <Container style={{margin:15, marginBottom:0, backgroundColor:'#fff'}}>
-                    <Header style={{backgroundColor:'#179ae6'}}>
+                
+              >
+                <SafeAreaView>
+                  <ScrollView>
+                    <Container
+                      style={{
+                        margin: 15,
+                        marginBottom: 0,
+                        backgroundColor: "#fff",
+                      }}
+                    >
+                      <Header style={{ backgroundColor: "#179ae6" }}>
                         <Left>
-                            <TouchableOpacity onPress={this.handleClose} transparent>
-                                <Icon name="close" style={{color: 'white', fontSize: 20}}/>
-                            </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={this.handleClose}
+                            transparent
+                          >
+                            <Icon
+                              name="close"
+                              style={{ color: "white", fontSize: 20 }}
+                            />
+                          </TouchableOpacity>
                         </Left>
                         <Body>
-                            <Title children={articleData.title} style={{color: 'white'}}/>
+                          <Title
+                            children={articleData.title}
+                            style={{ color: "white" }}
+                          />
                         </Body>
                         <Right>
-                            <TouchableOpacity onPress={this.handleShare} transparent>
-                                <Icon name="share" style={{color: 'white', fontSize: 20}}/>
-                            </TouchableOpacity>
+                          <TouchableOpacity
+                            onPress={this.handleShare}
+                            transparent
+                          >
+                            <Icon
+                              name="share"
+                              style={{ color: "white", fontSize: 20 }}
+                            />
+                          </TouchableOpacity>
                         </Right>
-                    </Header>
-                    <Content>
-                    <WebView source={{uri:url}} style={{flex: 1}}
-                        onError={this.handleClose} startInLoadingState
-                        scalesPageToFit
+                      </Header>
+                      <Content
+                        contentContainerStyle={{ height: webViewHeight }}
+                      >
+                        <WebView
+                          source={{ uri: url }}
+                          style={{ flex: 1 }}
+                          onError={this.handleClose}
+                          startInLoadingState
+                          scalesPageToFit
                         />
-                    </Content>
-                </Container>
-            </Modal>
+                      </Content>
+                    </Container>
+                  </ScrollView>
+                </SafeAreaView>
+              </Modal>
             );
         }
         else {
