@@ -37,61 +37,57 @@ class ModalComponent extends Component {
                 transparent
                 visible={showModal}
                 onRequestClose={this.handleClose}
-                propagateSwipe
+                propagateSwipe={true}
               >
-                <SafeAreaView>
-                  <ScrollView>
-                    <Container
-                      style={{
-                        margin: 15,
-                        marginBottom: 0,
-                        backgroundColor: "#fff",
-                      }}
-                    >
-                      <Header style={{ backgroundColor: "#179ae6" }}>
-                        <Left>
-                          <TouchableOpacity
-                            onPress={this.handleClose}
-                            transparent
-                          >
-                            <Icon
-                              name="close"
-                              style={{ color: "white", fontSize: 20 }}
-                            />
-                          </TouchableOpacity>
-                        </Left>
-                        <Body>
-                          <Title
-                            children={articleData.title}
-                            style={{ color: "white" }}
+                <ScrollView>
+                  <Container
+                    style={{
+                      margin: 15,
+                      marginBottom: 0,
+                      backgroundColor: "#fff",
+                    }}
+                  >
+                    <Header style={{ backgroundColor: "#179ae6" }}>
+                      <Left>
+                        <TouchableOpacity
+                          onPress={this.handleClose}
+                          transparent
+                        >
+                          <Icon
+                            name="close"
+                            style={{ color: "white", fontSize: 20 }}
                           />
-                        </Body>
-                        <Right>
-                          <TouchableOpacity
-                            onPress={this.handleShare}
-                            transparent
-                          >
-                            <Icon
-                              name="share"
-                              style={{ color: "white", fontSize: 20 }}
-                            />
-                          </TouchableOpacity>
-                        </Right>
-                      </Header>
-                      <Content
-                        contentContainerStyle={{ height: webViewHeight }}
-                      >
-                        <WebView
-                          source={{ uri: url }}
-                          style={{ flex: 1 }}
-                          onError={this.handleClose}
-                          startInLoadingState
-                          scalesPageToFit
+                        </TouchableOpacity>
+                      </Left>
+                      <Body>
+                        <Title
+                          children={articleData.title}
+                          style={{ color: "white" }}
                         />
-                      </Content>
-                    </Container>
-                  </ScrollView>
-                </SafeAreaView>
+                      </Body>
+                      <Right>
+                        <TouchableOpacity
+                          onPress={this.handleShare}
+                          transparent
+                        >
+                          <Icon
+                            name="share"
+                            style={{ color: "white", fontSize: 20 }}
+                          />
+                        </TouchableOpacity>
+                      </Right>
+                    </Header>
+                    <Content contentContainerStyle={{ height: webViewHeight }}>
+                      <WebView
+                        source={{ uri: url }}
+                        style={{ flex: 1 }}
+                        onError={this.handleClose}
+                        startInLoadingState
+                        scalesPageToFit
+                      />
+                    </Content>
+                  </Container>
+                </ScrollView>
               </Modal>
             );
         }
