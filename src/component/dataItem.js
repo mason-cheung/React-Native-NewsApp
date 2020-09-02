@@ -16,8 +16,8 @@ export default class DataItem extends Component {
 
   render() {
     return (
-      <ListItem thumbnail>
-        <TouchableOpacity onPress={this.handlePress}>
+      
+        <ListItem thumbnail onPress={this.handlePress}>
           <Left>
             <Thumbnail
               square
@@ -41,10 +41,9 @@ export default class DataItem extends Component {
           </Body>
           {/* <Right>
             <TouchableOpacity transparent>
-              <Text>View</Text>
+            <Text>View</Text>
             </TouchableOpacity>
           </Right> */}
-      </TouchableOpacity>
         </ListItem>
     );
   }
