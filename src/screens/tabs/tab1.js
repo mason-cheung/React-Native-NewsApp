@@ -1,6 +1,6 @@
 //import liraries
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, FlatList, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ActivityIndicator, FlatList, ScrollView, SafeAreaView } from 'react-native';
 import { Container, Header, Content, List, ListItem, Thumbnail, Left, Body, Right, Button } from 'native-base';
 import { getArticles } from '../../service/news';
 import DataItem from '../../component/dataItem'
@@ -52,19 +52,34 @@ export default class Tab1 extends Component {
       console.log(this.state.data);
 
     let view = this.state.isLoading ? (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
-        <ActivityIndicator animating={this.state.isLoading} color="#00f0ff"/>
-        <Text style={{marginTop: 10, fontSize: 18}} children="Please Wait.." />
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 100,
+        }}
+      >
+        <ActivityIndicator animating={this.state.isLoading} color="#00f0ff" />
+        <Text
+          style={{ marginTop: 10, fontSize: 18 }}
+          children="Please Wait.."
+        />
       </View>
     ) : (
-      <List
-        dataArray={this.state.data}
-        renderRow={(item) => {
-            return (
-              <DataItem onPress={this.handleItemDataOnPress} data={item} />
-            )
-        }} />
-    )
+      <SafeAreaView>
+        <ScrollView>
+          <List
+            dataArray={this.state.data}
+            renderRow={(item) => {
+              return (
+                <DataItem onPress={this.handleItemDataOnPress} data={item} />
+              );
+            }}
+          />
+        </ScrollView>
+      </SafeAreaView>
+    );
 
     return (
       <Container>
