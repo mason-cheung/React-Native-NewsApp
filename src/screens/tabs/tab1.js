@@ -76,6 +76,7 @@ export default class Tab1 extends Component {
                 <DataItem onPress={this.handleItemDataOnPress} data={item} />
               );
             }}
+            keyExtractor={(item, index) => index.toString()}
           />
         </ScrollView>
       </SafeAreaView>
